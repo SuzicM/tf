@@ -19,8 +19,8 @@ export enum RequestMethod {
 export class ApiService {
 
   headers = new HttpHeaders({
-    //'Accept': 'application/json',
-    //'Content-Type': 'application/json'
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
   });
 
   constructor(private http: HttpClient) { }

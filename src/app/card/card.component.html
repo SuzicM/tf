@@ -1,7 +1,7 @@
 <mat-card class="card-container">
   <mat-card-header>
     
-    <mat-card-subtitle > r/{{club}}. Posted by: {{displayName}}</mat-card-subtitle>
+    <mat-card-subtitle > Posted by: {{displayName}}</mat-card-subtitle>
     <mat-card-title ><b>{{title}}</b></mat-card-title>
     
   </mat-card-header>
@@ -15,25 +15,24 @@
     <div>   
 
 
-        <button (click)="upvote()"  class="vote" mat-raised-button>
-          <img src="../assets/upvote.png" style="width: 20px">
+        <button (click)="upvote()"  class="primary" mat-raised-button>
+          <img src="../assets/like.png" style="width: 20px">
         </button>
     
-        <div class="karma">{{karma}}</div>
+        <div class="likes">{{likes}}</div>
         <div style="margin-left: 35%;">
-        <button (click)="downvote()" class="vote" mat-raised-button>
-          <img src="../assets/downvote.png" style="width: 20px">
-        </button>
 
     
-        <button (click)="onButtonClick()" color="primary" mat-raised-button>
-            Comments
-        </button>
         <button (click)="onButtonClick1()" color="primary" mat-raised-button>
-          Delete
+          List
+        </button>
+        <button (click)="onButtonClick2()" color="primary" mat-raised-button>
+          Number of likes
         </button>
       </div>
       </div>
+
+      <div style="margin-left: 35%;" class="list">{{listOfUsers}}</div>
 
 
 

@@ -30,10 +30,13 @@ export class UserProfileComponent implements OnInit {
         private authService: AuthService
     ) {
         this.user = {
-            id: 0,
-            password:'',
-            username:'',
-            display_name:''
+            username: '',
+            password: '',
+            name: '',
+            surname: '',
+            age: 0,
+            gender: '',
+            residance: ''
         }
     }
 
@@ -58,7 +61,7 @@ export class UserProfileComponent implements OnInit {
 
     getUser(username: String){
         return this.http.get<any>(`http://localhost:8080/api/user/${username}`).subscribe(
-            user=> {this.user = user; console.log("ID USERA" + this.user.id) }
+            user=> {this.user = user;}
 
         )
     }

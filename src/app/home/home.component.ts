@@ -7,6 +7,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { OuterSubscriber } from 'rxjs/internal-compatibility';
 import { User } from '../model/user2.model';
+import { Reaction } from '../model/reaction.model';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -20,8 +22,7 @@ export class HomeComponent implements OnInit {
   posts: Post[]=[];
   user!:User;
   author_name: String;
-  communityName: String;
-  username: string;
+  username: String;
 
   constructor(
     private http: HttpClient,
@@ -29,25 +30,25 @@ export class HomeComponent implements OnInit {
     private authService: AuthService
   ) {
     this.user = {
-      id: 0,
-      password:'',
-      username:'',
-      display_name:''
+      username: '',
+      password: '',
+      name: '',
+      surname: '',
+      age: 0,
+      gender: '',
+      residance: ''
     }
   }
 
 
 
   ngOnInit() {
-    console.log("asd")
-    /*this.route.paramMap.subscribe((params: ParamMap) => {
+    this.username=this.getUsername();
+    this.route.paramMap.subscribe((params: ParamMap) => {
       this.getPosts().subscribe(posts => {
       this.posts = posts
-      
-      this.username=this.getUsername();
     })
     }); 
-*/
   }
 
   makeRequest() {
@@ -57,15 +58,25 @@ export class HomeComponent implements OnInit {
 
   getUser(username: String){
     return this.http.get<any>(`http://localhost:8080/api/user/${username}`).subscribe(
-      user=> {this.user = user; console.log("ID USERA" + this.user.id) }
+      user=> {this.user = user; }
      
     )
   }
 
   getPosts() {
     const headers= new HttpHeaders()
-    .set('Access-Control-Allow-Origin', '*');
-    return this.http.get<any>(`http://localhost:8080/api/post/`,{'headers' : headers});
+    .set('Access-Control-Allow-Origin', 'http://localhost:8080');
+    return this.http.get<any>(`http://localhost:8080/api/tweet/username/${this.username}/`,{'headers' : headers});
+  }
+
+  getList(id : String) {
+    const headers= new HttpHeaders()
+    return this.http.get<any>(`http://localhost:8080/api/tweet/list/${id}`,{'headers' : headers})
+  }
+
+  getLikes(id : String){
+    const headers= new HttpHeaders()
+    return this.http.get<any>(`http://localhost:8080/api/tweet/like/${id}/`,{'headers' : headers})
   }
 
   getUsername(){
@@ -74,6 +85,18 @@ export class HomeComponent implements OnInit {
 
   hasSignedIn(){
     return this.authService.tokenIsPresent()
+  }
+
+  postVote(reaction : Reaction){
+    const postHeaders = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    return this.http.post("http://localhost:8080/api/tweet/like/", JSON.stringify(reaction))
+      .pipe(map(() => {
+        console.log('Liked');
+      }));
   }
   
   

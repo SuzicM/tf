@@ -9,21 +9,9 @@
         <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
         <form (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
 
-            <mat-form-field>
-                <input formControlName="title" matInput placeholder="Title" required>
-            </mat-form-field>
-
-            <mat-form-field >
-                <mat-select formControlName="community_name" name="community_name">
-                    <mat-option *ngFor="let com of community" [value]="com.name">
-                      {{com.name}}
-                    </mat-option>
-                  </mat-select>
-              </mat-form-field>
-
-      
             
-            <textarea formControlName="text" class = "mat-form" rows="10" required type="text"></textarea>
+
+            <textarea formControlName="title" class = "mat-form" rows="10" required type="title"></textarea>
             <button [disabled]="!form.valid"  mat-raised-button type="submit">Create post</button>
             <br>
             <button  mat-raised-button routerLink="/home" >Go Back</button>

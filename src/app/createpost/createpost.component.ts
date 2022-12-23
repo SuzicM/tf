@@ -34,9 +34,6 @@ export class CreatepostComponent implements OnInit {
   username: string;
 
 
-  community: Community[] = [];
-
-
   constructor(
     private postService: PostService,
     private authService: AuthService,
@@ -46,25 +43,22 @@ export class CreatepostComponent implements OnInit {
     private http: HttpClient
   ) {
     this.newPost = {
-      id: 0,
+      tweetid : "",
       title : "",
-      text : "",
-      community_name :"",
-      author_name:""
+      body : "",
+      username:""
     }
   }
 
   ngOnInit() {
-    this.getCommunity();
     this.username = this.route.snapshot.paramMap.get('username');
 
 
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+    this.returnUrl = '/home';
     this.form = this.formBuilder.group({
       title: [''],
       text: [''],
-      author_name: [''],
-      community_name: ['']
+      author_name: ['']
     });
   }
 
@@ -73,32 +67,21 @@ export class CreatepostComponent implements OnInit {
     this.ngUnsubscribe.complete();
   }
 
-  getCommunity(): void {
-    this.http.get<any>(`http://localhost:8080/api/community/`).subscribe(community=> this.community=community)
-  }
 
   postPost(post: Post):Observable<any>{
-
-    return this.http.post("http://localhost:8080/api/post/", post);
+    return this.authService.createpost(post);
   }
 
   onSubmit() {
-
-
-
     this.newPost.title = this.form.get('title').value
-    this.newPost.text = this.form.get('text').value
-    this.newPost.community_name = this.form.get('community_name').value
-    this.newPost.author_name = this.username
+    //this.newPost.body = this.form.get('title').value
+    this.newPost.username = this.username
 
-    console.log(this.newPost.author_name)
+    console.log(this.newPost.body)
 
     this.postPost(this.newPost).subscribe(data => {console.log(data);
       this.router.navigate([this.returnUrl]);})
     
   }
-
-  
-
 
 }

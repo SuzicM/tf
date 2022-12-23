@@ -1,7 +1,6 @@
 export interface Post {
-    id: number;
+    tweetid: string;
     title: string;
     text: string;
     authorName: string;
-    communityName: string;
 }

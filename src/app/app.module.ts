@@ -25,14 +25,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './interceptor/TokenInterceptor';
 import { PostComponent } from './post/post.component';
 import { CreatepostComponent } from './createpost/createpost.component';
-import { CommunityComponent } from './community/community.component';
-import { CreatecommunityComponent } from './createcommunity/createcommunity.component';
-import { RulescardComponent } from './rulescard/rulescard.component';
-import { CommunitiescardComponent } from './communitiescard/communitiescard.component';
 import {MatInputModule} from '@angular/material';
-import { UpdatecommunityComponent } from './updatecommunity/updatecommunity.component';
 import { VoteButtonComponent } from './vote-button/vote-button.component';
-import { AllcommunitiesComponent } from './allcommunities/allcommunities.component';
 import { UpdateuserComponent } from './updateuser/updateuser.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { UserdetailsComponent } from './userdetails/userdetails.component';
@@ -47,13 +41,7 @@ import { UserdetailsComponent } from './userdetails/userdetails.component';
     SignUpComponent,
     PostComponent,
     CreatepostComponent,
-    CommunityComponent,
-    CreatecommunityComponent,
-    RulescardComponent,
-    CommunitiescardComponent,
-    UpdatecommunityComponent,
     VoteButtonComponent,
-    AllcommunitiesComponent,
     UpdateuserComponent,
     ChangepasswordComponent,
     UserdetailsComponent,

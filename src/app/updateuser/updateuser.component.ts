@@ -33,11 +33,13 @@ export class UpdateuserComponent implements OnInit {
     private http: HttpClient,
     private _Activatedroute:ActivatedRoute) { 
       this.newUser = {
-        id: 0,
-        username: "",
-        password: "",
-        display_name:"",
-        description: ""
+        username: '',
+        password: '',
+        name: '',
+        surname: '',
+        age: 0,
+        gender: '',
+        residance: ''
       }
     }
 
@@ -56,8 +58,8 @@ export class UpdateuserComponent implements OnInit {
     });
   }
   onSubmit() {
-    this.newUser.display_name =this.form.get('display_name').value
-    this.newUser.description =this.form.get('description').value
+    /*this.newUser.display_name =this.form.get('display_name').value
+    this.newUser.description =this.form.get('description').value*/
     console.log(this.username);
     this.putUser(this.newUser,this.username).subscribe(data =>{console.log(data);this.router.navigate([this.returnUrl]);})
   }

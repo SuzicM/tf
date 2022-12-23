@@ -26,11 +26,11 @@ export class AuthService {
 
   login(user) {
     const loginHeaders = new HttpHeaders({
-      /*'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Origin': '*',
       'Accept': 'application/json',
-      'Content-Type': 'application/json'*/
+      'Content-Type': 'application/json',
+      'withCredentials': 'true'
     });
-     //const body = `username=${user.username}&password=${user.password}`;
     const body = {
       'username': user.username,
       'password': user.password
@@ -38,16 +38,16 @@ export class AuthService {
     return this.apiService.post(this.config.login_url, JSON.stringify(body), loginHeaders)
       .pipe(map((res) => {
         console.log('Login success');
-        //this.access_token = res.accessToken;
-        //localStorage.setItem("jwt", res.accessToken)
+        this.access_token = res;
+        localStorage.setItem("jwt", res)
       }));
   }
 
   signup(user) {
     const signupHeaders = new HttpHeaders({
-      //'Access-Control-Allow-Origin': '*',
-      //'Accept': 'application/json',
-      //'Content-Type': 'application/json'
+      'Access-Control-Allow-Origin': '*',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     });
     return this.apiService.post(this.config.signup_url, JSON.stringify(user), signupHeaders)
       .pipe(map(() => {
@@ -67,31 +67,28 @@ export class AuthService {
       }));
   }
 
-  createcommunity(post){
+  likepost(like){
     const postHeaders = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     });
-    return this.apiService.post(this.config.community_url, JSON.stringify(post), postHeaders)
+    return this.apiService.post(this.config.likes_url, JSON.stringify(like), postHeaders)
       .pipe(map(() => {
-        console.log('Create community sucsess');
+        console.log('Create post sucsess');
       }));
   }
 
   logout() {
     localStorage.removeItem('jwt')
+    console.log('Logout success');
     this.router.navigateByUrl('/home');
+    window.location.reload()
   }
 
   tokenIsPresent(): Boolean {
     let token = this.getToken()
     return token != null;
-  }
-
-  cookieIsPresent(): Boolean {
-    let cookie = this.getToken()
-    return cookie != null;
   }
 
   getToken() {

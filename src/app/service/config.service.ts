@@ -9,9 +9,17 @@ export class ConfigService {
 
   private _user_url = this._api_url + '/user/';
 
+  private _tweets_url = this._api_url + '/tweet/';
+
+  private _likes_url = this._tweets_url + 'like/';
+
+  private _list_url = this._tweets_url + 'list/';
+
   private _login_url = this._user_url + 'login/';
 
-  private _posts_url = this._api_url + '/posts/';
+  private _logout_url = this._user_url + 'logout/';
+
+  private _posts_url = this._tweets_url + 'username/';
 
   private _community_url = this._api_url + '/community/'
 
@@ -25,8 +33,24 @@ export class ConfigService {
     return this._posts_url;
   }
 
+  get likes_url(): string {
+    return this._likes_url;
+  }
+
+  get list_url(): string {
+    return this._list_url;
+  }
+
   get login_url(): string {
     return this._login_url;
+  }
+
+  get tweets_url(): string {
+    return this._tweets_url + 'usernames/tweet/';
+  }
+
+  get logout_url(): string {
+    return this._logout_url;
   }
 
 
