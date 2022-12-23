@@ -1,17 +1,16 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AuthService, PostService} from '../service';
-import { Subject } from 'rxjs/Subject';
-import { takeUntil } from 'rxjs/operators';
-import { Community } from '../model/community.model';
-import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { User } from '../model/user3.model';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {AuthService, PostService} from '../service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {User} from '../model/user3.model';
+import {Post} from "../model/post.model";
+
 interface DisplayMessage {
   msgType: string;
   msgBody: string;
 }
+
 @Component({
   selector: 'app-userdetails',
   templateUrl: './userdetails.component.html',
@@ -20,65 +19,57 @@ interface DisplayMessage {
 
 
 export class UserdetailsComponent implements OnInit {
+  posts: Post[]=[];
   submitted = false;
+  usernameUser: string;
+  name: string;
+  surname: string;
   notification: DisplayMessage;
   form: FormGroup;
-  newUser!:User;
+  newUser: User;
   username: string;
   returnUrl: string;
-  userKarma: number
-  id: number
-  constructor(    private postService: PostService,
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private _Activatedroute:ActivatedRoute) { 
-      this.newUser = {
-        id: 0,
-        password: "",
-        username: "",
-        display_name:"",
-        description: ""
-      }
-    }
 
-  ngOnInit() {
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      this.username = params.get(`username`) || ""
-      this.getUser(this.username).subscribe(newUser => {
-      this.newUser = newUser
-      this.getKarma(newUser.id).subscribe(
-        karma=> { this.userKarma = karma; console.log("ovo je karma korisnika" + karma)}
-     );
-    })
-    }); 
-    this.username = this.route.snapshot.paramMap.get('username');
+  constructor(private postService: PostService,
+              private authService: AuthService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private formBuilder: FormBuilder,
+              private http: HttpClient) {
+  }
 
-
-
-    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-    this.form = this.formBuilder.group({
-      displayName: [''],
-      description: ['']
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.username = params.get(`username`);
+      this.getUser(this.username).subscribe((responseUser) => {
+        console.log(responseUser);
+        this.newUser = responseUser[0];
+        this.usernameUser = responseUser[0].username;
+        this.name = responseUser[0].name;
+        this.surname = responseUser[0].surname;
+      });
+      this.getPosts().subscribe(posts => {
+        this.posts = posts;
+      });
     });
   }
 
 
-  putUser(user:User, username: string) {
+  putUser(user: User, username: string) {
 
-    return this.http.put<User>(`http://localhost:8080/api/user/${username}/`,user);
-    
+    return this.http.put<User>(`http://localhost:8080/api/user/${username}/`, user);
+
   }
 
-  getKarma(voterId: number){
-    return this.http.get<number>(`http://localhost:8080/api/reaction/voter/${voterId}/`)
-    
+
+  getUser(username: string) {
+    return this.http.get<any>(`http://localhost:8080/api/user/${username}/`);
   }
 
-  getUser(username: string){
-    return this.http.get<User>(`http://localhost:8080/api/user/username/${username}/`);
+  getPosts() {
+    const headers = new HttpHeaders()
+        .set('Access-Control-Allow-Origin', 'http://localhost:8080');
+    return this.http.get<any>(`http://localhost:8080/api/tweet/username/${this.username}/`,{'headers' : headers});
   }
 
 }

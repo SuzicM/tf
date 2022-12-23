@@ -1,30 +1,31 @@
 <div class="bg">
-<mat-card elevation="5" fxFlex class="content">
+    <mat-card elevation="5" fxFlex class="content">
 
-  <mat-card-title>
-      <h2>User details</h2>
-  </mat-card-title>
-  <mat-card-content>
+        <mat-card-title>
+            <h2>User details</h2>
+        </mat-card-title>
+        <mat-card-content>
 
-              <p>Username: {{newUser.username}}</p>
-              <p>DisplayName: {{newUser.display_name}}</p>
-              <p>Karma: {{userKarma}}</p>
-              <label>User description:</label>
-              <textarea rows="10" readonly>{{newUser.description}}</textarea>
+            <p >Username: {{usernameUser}}</p>
+            <p>Name: {{name}}</p>
+            <p>Surname: {{surname}}</p>
 
+            <button mat-raised-button routerLink="/home">Go Back</button>
+            <br>
 
+            <br>
+            <hr>
 
-          <button  mat-raised-button routerLink="/home" >Go Back</button>
+        </mat-card-content>
 
- 
-      <br>
-
-      <br>
-      <hr>
-  
-  </mat-card-content>
-
-</mat-card>
+    </mat-card>
+    <div *ngFor="let post of posts">
+        <p>
+            <app-card (apiClick)="makeRequest($event)"  apiText="Comments" fxFlex
+                      postId={{post.id}} content={{post.text}} title={{post.title}} author= {{post.author_name}} club={{post.community_name}} >
+            </app-card>
+        </p>
+    </div>
 </div>
 
 
