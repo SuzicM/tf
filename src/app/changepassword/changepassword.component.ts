@@ -86,7 +86,7 @@ changePass(newPassword: string, username: string) {
 }
 
 getUser(username: string){
-  return this.http.get<any>(`http://localhost:8080/api/user/username/${username}/`);
+  return this.http.get<any>(`http://localhost:8080/api/user/${username}/`);
   
 }
 }

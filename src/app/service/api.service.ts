@@ -54,7 +54,6 @@ export class ApiService {
     const req = new HttpRequest(method, path, body, {
       headers: custemHeaders || this.headers,
     });
-
     return this.http.request(req).pipe(filter(response => response instanceof HttpResponse))
       .pipe(map((response: HttpResponse<any>) => response.body))
       .pipe(catchError(error => this.checkError(error)));

@@ -58,6 +58,13 @@ export class PostService {
     }, this.headers())
   }
 
+  sendConfirm(code : string){
+    const body = {
+      'code': code
+    };
+    return this.http.post<unknown>(this.config.confrim_url, JSON.stringify(body), this.headers())
+  }
+
   headers(){
     return {
       headers : new HttpHeaders({

@@ -42,16 +42,13 @@ export class UserdetailsComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.username = params.get(`username`);
       this.getUser(this.username).subscribe((responseUser) => {
-        console.log(responseUser);
         this.newUser = responseUser[0];
         this.usernameUser = responseUser[0].username;
         this.name = responseUser[0].name;
         this.surname = responseUser[0].surname;
       });
-      this.getPosts().subscribe(posts => {
-        this.posts = posts;
-      });
     });
+    this.postsGotten()
   }
 
 
@@ -61,13 +58,19 @@ export class UserdetailsComponent implements OnInit {
 
   }
 
+  postsGotten(){
+    this.getPosts().subscribe(posts => {
+      this.posts = posts;
+    });
+  }
+
 
   getUser(username: string) {
     return this.http.get<any>(`http://localhost:8080/api/user/${username}/`);
   }
 
   getPosts() {
-    const headers = new HttpHeaders()
+   const headers = new HttpHeaders()
         .set('Access-Control-Allow-Origin', 'http://localhost:8080');
     return this.http.get<any>(`http://localhost:8080/api/tweet/username/${this.username}/`,{'headers' : headers});
   }

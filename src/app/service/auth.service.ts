@@ -43,6 +43,21 @@ export class AuthService {
       }));
   }
 
+  sendcode(code){
+    const codeHeaders = new HttpHeaders({
+      'Access-Control-Allow-Origin': '*',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    });
+    const body = {
+      'code': code
+    };
+    return this.apiService.post(this.config.confrim_url, JSON.stringify(body), codeHeaders)
+    .pipe(map(() => {
+      console.log('Code sent successfully');
+    }));
+  }
+
   signup(user) {
     const signupHeaders = new HttpHeaders({
       'Access-Control-Allow-Origin': '*',

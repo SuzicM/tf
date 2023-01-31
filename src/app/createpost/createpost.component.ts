@@ -6,7 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Community } from '../model/community.model';
-import { Post } from '../model/post.model';
+import { Post } from '../model/postId.model';
 import { Observable } from 'rxjs';
 
 interface DisplayMessage {
@@ -43,7 +43,6 @@ export class CreatepostComponent implements OnInit {
     private http: HttpClient
   ) {
     this.newPost = {
-      tweetid : "",
       title : "",
       body : "",
       username:""

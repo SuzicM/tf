@@ -15,6 +15,8 @@ export class ConfigService {
 
   private _list_url = this._tweets_url + 'list/';
 
+  private _confirm_url = this._user_url + 'confirm/'
+
   private _login_url = this._user_url + 'login/';
 
   private _logout_url = this._user_url + 'logout/';
@@ -35,6 +37,10 @@ export class ConfigService {
 
   get likes_url(): string {
     return this._likes_url;
+  }
+
+  get confrim_url(): string {
+    return this._confirm_url;
   }
 
   get list_url(): string {

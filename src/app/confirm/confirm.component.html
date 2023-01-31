@@ -1,0 +1,28 @@
+<div class="bg">
+    <mat-card elevation="5" fxFlex class="content">
+
+        <mat-card-title>
+            <h2>{{title}}</h2>
+        </mat-card-title>
+
+        <mat-card-content>
+            <p *ngIf="notification" [class]="notification.msgType">{{notification.msgBody}}</p>
+
+            <form #confirmForm="ngForm" (ngSubmit)="onSubmit()" *ngIf="!submitted" [formGroup]="form">
+                <mat-form-field>
+                    <input formControlName="confirmationNumber" matInput placeholder="Confirmation Number" required>
+                </mat-form-field>
+                <button [disabled]="!confirmForm.form.valid"  mat-raised-button
+                    type="submit">Confirm</button>
+                <br>
+                <button  mat-raised-button routerLink="/home" >Go Back</button>
+            </form>
+            <br>
+
+            <mat-spinner *ngIf="submitted" mode="indeterminate"></mat-spinner>
+            <br>
+            <hr>
+        </mat-card-content>
+
+    </mat-card>
+</div>

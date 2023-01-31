@@ -30,6 +30,7 @@ import { VoteButtonComponent } from './vote-button/vote-button.component';
 import { UpdateuserComponent } from './updateuser/updateuser.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { UserdetailsComponent } from './userdetails/userdetails.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +46,7 @@ import { UserdetailsComponent } from './userdetails/userdetails.component';
     UpdateuserComponent,
     ChangepasswordComponent,
     UserdetailsComponent,
+    ConfirmComponent,
   ],
   imports: [
     MatInputModule,
@@ -62,6 +64,7 @@ import { UserdetailsComponent } from './userdetails/userdetails.component';
       useClass: TokenInterceptor,
       multi: true
     },
+    HomeComponent,
     AuthService,
     ApiService,
     UserService,
