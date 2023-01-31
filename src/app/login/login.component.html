@@ -15,6 +15,7 @@
                 <mat-form-field>
                     <input formControlName="password" matInput placeholder="Password" required type="password">
                 </mat-form-field>
+                <app-recapthca (resolve)="resolved($event)"></app-recapthca>
                 <button [disabled]="!loginForm.form.valid"  mat-raised-button
                     type="submit">Login</button>
                 <br>

@@ -34,6 +34,7 @@ export class SignUpComponent implements OnInit {
   notification: DisplayMessage;
 
   returnUrl: string;
+  captcha :string;
   private ngUnsubscribe: Subject<void> = new Subject<void>();
 
   constructor(
@@ -43,7 +44,7 @@ export class SignUpComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder
   ) {
-
+    this.captcha = ''
   }
 
   ngOnInit() {
@@ -71,7 +72,9 @@ export class SignUpComponent implements OnInit {
     this.ngUnsubscribe.complete();
   }
   onSubmit() {
-
+    if (this.captcha == ""){
+      alert("You must solve the captcha first to be able to sign up!")
+    } else{
     this.notification = undefined;
     this.submitted = true;
 
@@ -85,7 +88,12 @@ export class SignUpComponent implements OnInit {
           console.log('Sign up error');
           this.notification = { msgType: 'error', msgBody: error['error'].message };
         });
+      }
 
+  }
+
+  resolved(captcha : string){
+    this.captcha = captcha;
   }
 
 

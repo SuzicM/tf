@@ -15,6 +15,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import {AngularMaterialModule} from './angular-material/angular-material.module';
 
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RecaptchaModule, RecaptchaFormsModule } from 'ng-recaptcha';
 
 import {ApiService} from './service/api.service';
 import {AuthService} from './service/auth.service';
@@ -31,6 +32,8 @@ import { UpdateuserComponent } from './updateuser/updateuser.component';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { UserdetailsComponent } from './userdetails/userdetails.component';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { environment } from '../environments/environment';
+import { RecapthcaComponent } from './recapthca/recapthca.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +50,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
     ChangepasswordComponent,
     UserdetailsComponent,
     ConfirmComponent,
+    RecapthcaComponent,
   ],
   imports: [
     MatInputModule,
@@ -57,6 +61,8 @@ import { ConfirmComponent } from './confirm/confirm.component';
     AngularMaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    RecaptchaModule,
+    RecaptchaFormsModule,
   ],
   providers: [ 
     {

@@ -40,6 +40,7 @@
                 <label>Gender: </label>
                 <input formControlName="gender" matInput>
             </mat-form-field>
+            <app-recapthca (resolve)="resolved($event)"></app-recapthca>
             <button [disabled]="!form.valid"  mat-raised-button type="submit">Sign up</button>
             <br>
             <button  mat-raised-button routerLink="/home" >Go Back</button>

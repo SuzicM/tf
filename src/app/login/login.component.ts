@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService, UserService} from '../service';
@@ -9,7 +9,6 @@ interface DisplayMessage {
   msgType: string;
   msgBody: string;
 }
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -32,6 +31,7 @@ export class LoginComponent implements OnInit {
     notification: DisplayMessage;
 
     returnUrl: string;
+    captcha : string;
     private ngUnsubscribe: Subject<void> = new Subject<void>();
     username: string;
 
@@ -40,8 +40,10 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
-  ) { }
+    private formBuilder: FormBuilder,
+  ) {
+    this.captcha = ''
+   }
 
   ngOnInit() {
     this.route.params
@@ -62,9 +64,13 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    if (this.captcha == ""){
+      alert("You must solve the captcha first to be able to log in!")
+    } else{
     this.username = this.form.get('username').value
     this.notification = undefined;
     this.submitted = true;
+    console.log(this.captcha)
    
     //this.returnUrl = `/${this.username}/home`;
     this.returnUrl = `/home`;
@@ -79,6 +85,11 @@ export class LoginComponent implements OnInit {
           this.submitted = false;
           this.notification = {msgType: 'error', msgBody: 'Incorrect username or password.'};
         });
+      }
+  }
+  
+  resolved(captcha : string){
+    this.captcha = captcha;
   }
 
 }
